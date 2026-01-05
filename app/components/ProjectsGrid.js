@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function ProjectsGrid() {
   // Define filter categories
@@ -99,13 +99,46 @@ export default function ProjectsGrid() {
       ? projects
       : projects.filter((project) => project.tags.includes(activeFilter));
 
+  // Parallax state and refs
+  const containerRef = useRef(null);
+  const [offset, setOffset] = useState(0);
+
+  useEffect(() => {
+    let mounted = true;
+    let rafId = null;
+
+    const onScroll = () => {
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const speed = 0.35; // adjust for stronger/weaker parallax
+      const y = -rect.top * speed;
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        if (mounted) setOffset(Math.round(y));
+      });
+    };
+
+    // initial position
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+
+    return () => {
+      mounted = false;
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
+  }, []);
+
   return (
     <div
+      ref={containerRef}
       className="parallax-hero relative min-h-screen flex items-start justify-center px-4 py-24"
       style={{
         backgroundImage: "url(/assets/hero3.jpg)",
-        backgroundSize: "contain",
-        backgroundPosition: "center",
+        backgroundSize: "cover",
+        backgroundPosition: "center " + offset + "px",
       }}
     >
       {/* Dark overlay for better text readability */}
@@ -149,30 +182,70 @@ export default function ProjectsGrid() {
         {/* Projects Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
           {filteredProjects.map((project) => (
-            <div
-              key={project.id}
-              className="bg-white rounded shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-            >
-              <div className="relative overflow-hidden h-48 md:h-64 lg:h-72">
-                <Image
-                  src={project.path}
-                  alt={project.title}
-                  width={500}
-                  height={400}
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                />
-              </div>
-              <div className="p-4 md:p-6">
-                <h3 className="text-lg md:text-xl lg:text-2xl font-semibold mb-2 md:mb-3 text-gray-800">
-                  {project.title}
-                </h3>
-                <p className="text-sm md:text-base text-gray-600 leading-relaxed">
-                  {project.description}
-                </p>
-              </div>
-            </div>
+            <ProjectCard key={project.id} project={project} />
           ))}
         </div>
+      </div>
+    </div>
+  );
+}
+
+// Separate component for project cards with parallax effect
+function ProjectCard({ project }) {
+  const cardRef = useRef(null);
+  const [imageOffset, setImageOffset] = useState(0);
+
+  useEffect(() => {
+    let mounted = true;
+    let rafId = null;
+
+    const onScroll = () => {
+      if (!cardRef.current) return;
+      const rect = cardRef.current.getBoundingClientRect();
+      const speed = 0.15; // parallax speed for images
+      const y = -rect.top * speed;
+
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        if (mounted) setImageOffset(y);
+      });
+    };
+
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+
+    return () => {
+      mounted = false;
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
+  }, []);
+
+  return (
+    <div
+      ref={cardRef}
+      className="bg-white rounded shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+    >
+      <div className="relative overflow-hidden h-48 md:h-64 lg:h-72">
+        <div style={{ transform: `translateY(${imageOffset * 0.5}px)` }}>
+          <Image
+            src={project.path}
+            alt={project.title}
+            width={500}
+            height={400}
+            className="w-full h-48 md:h-64 lg:h-72 object-cover transition-transform duration-500 hover:scale-105"
+          />
+        </div>
+      </div>
+      <div className="p-4 md:p-6">
+        <h3 className="text-lg md:text-xl lg:text-2xl font-semibold mb-2 md:mb-3 text-gray-800">
+          {project.title}
+        </h3>
+        <p className="text-sm md:text-base text-gray-600 leading-relaxed">
+          {project.description}
+        </p>
       </div>
     </div>
   );
