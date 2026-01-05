@@ -112,28 +112,32 @@ export default function ProjectsGrid() {
       <div className="absolute inset-0 bg-white/80"></div>
       <div className="relative z-10 container mx-auto px-4">
         <h1
-          className="text-6xl font-bold mb-8 "
+          className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8 text-center md:text-left"
           style={{ fontFamily: "'Times New Roman', serif" }}
         >
           Projects
         </h1>
 
         {/* Filter Buttons */}
-        <div className="mb-8 flex flex-wrap gap-3">
+        <div className="mb-8 flex flex-wrap gap-2 md:gap-3 justify-center md:justify-start">
           {filterCategories.map((category) => (
             <button
               key={category}
               onClick={() => setActiveFilter(category)}
               className={`
-                px-6 py-2.5 rounded transition-all duration-300
-                border text-base font-medium whitespace-nowrap
+                px-4 md:px-6 py-2 md:py-2.5 rounded transition-all duration-300
+                border text-sm md:text-base font-medium whitespace-nowrap
                 ${
                   activeFilter === category
-                    ? "bg-linear-to-r from-[#AD8151] to-[#D4A76A] text-white border-transparent shadow-lg shadow-amber-200/30"
+                    ? "text-white border-transparent shadow-lg shadow-amber-200/30"
                     : "bg-white text-gray-700 border-gray-200 hover:border-gray-300 hover:bg-gray-50"
                 }
               `}
               style={{
+                background:
+                  activeFilter === category
+                    ? "linear-gradient(to right, #AD8151, #D4A76A)"
+                    : undefined,
                 borderWidth: activeFilter === category ? "0px" : "1px",
               }}
             >
@@ -143,26 +147,26 @@ export default function ProjectsGrid() {
         </div>
 
         {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
           {filteredProjects.map((project) => (
             <div
               key={project.id}
               className="bg-white rounded shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
             >
-              <div className="relative overflow-hidden">
+              <div className="relative overflow-hidden h-48 md:h-64 lg:h-72">
                 <Image
                   src={project.path}
                   alt={project.title}
                   width={500}
                   height={400}
-                  className="w-full h-72 object-cover transition-transform duration-500 hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                 />
               </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-semibold mb-3 text-gray-800">
+              <div className="p-4 md:p-6">
+                <h3 className="text-lg md:text-xl lg:text-2xl font-semibold mb-2 md:mb-3 text-gray-800">
                   {project.title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-sm md:text-base text-gray-600 leading-relaxed">
                   {project.description}
                 </p>
               </div>

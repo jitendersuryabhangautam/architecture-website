@@ -119,7 +119,7 @@ export default function Hero() {
 
         <div className="container mx-auto relative z-10 flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-12">
           <div className="w-full lg:w-[45%] flex justify-center">
-            <div className="relative w-full max-w-150 aspect-square rounded overflow-hidden shadow-2xl">
+            <div className="relative w-full max-w-sm md:max-w-md lg:max-w-2xl aspect-square rounded overflow-hidden shadow-2xl">
               {/* Main Image Container with Smooth Transition */}
               <div className="relative w-full h-full">
                 <Image
@@ -159,7 +159,7 @@ export default function Hero() {
 
               {/* Navigation Arrows */}
               <button
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/20 hover:bg-black/40 backdrop-blur-sm text-white p-3 rounded-full transition-all duration-300 z-20 hover:scale-110 group"
+                className="absolute left-2 md:left-4 top-1/2 transform -translate-y-1/2 bg-black/20 hover:bg-black/40 backdrop-blur-sm text-white p-2 md:p-3 rounded-full transition-all duration-300 z-20 hover:scale-110 group"
                 onClick={() =>
                   navigateToImage(
                     (currentImageIndex - 1 + images.length) % images.length
@@ -183,7 +183,7 @@ export default function Hero() {
                 </svg>
               </button>
               <button
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/20 hover:bg-black/40 backdrop-blur-sm text-white p-3 rounded-full transition-all duration-300 z-20 hover:scale-110 group"
+                className="absolute right-2 md:right-4 top-1/2 transform -translate-y-1/2 bg-black/20 hover:bg-black/40 backdrop-blur-sm text-white p-2 md:p-3 rounded-full transition-all duration-300 z-20 hover:scale-110 group"
                 onClick={() =>
                   navigateToImage((currentImageIndex + 1) % images.length)
                 }
@@ -208,21 +208,21 @@ export default function Hero() {
           </div>
 
           {/* Text Section */}
-          <div className="w-full lg:w-[55%] px-6 lg:px-8 py-8 lg:py-10">
-            <div className="text-start mb-10">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+          <div className="w-full lg:w-[55%] px-4 md:px-6 lg:px-8 py-6 md:py-8 lg:py-10">
+            <div className="text-start mb-8 md:mb-10">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-4 md:mb-6 leading-tight">
                 Crafting Dreams,
                 <br />
                 Building Legacies
               </h1>
 
-              <p className="text-gray-800 text-lg md:text-xl mb-6 leading-relaxed">
+              <p className="text-gray-800 text-base md:text-lg mb-4 md:mb-6 leading-relaxed">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                 enim ad minim veniam, quis nostrud exercitation ullamco laboris
                 nisi ut aliquip ex ea commodo consequat.
               </p>
-              <p className="text-gray-800 text-lg md:text-xl mb-8 leading-relaxed">
+              <p className="text-gray-800 text-base md:text-lg mb-6 md:mb-8 leading-relaxed">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                 enim ad minim veniam, quis nostrud exercitation ullamco laboris
@@ -233,7 +233,7 @@ export default function Hero() {
             <div className="text-start">
               <Link
                 href="/contact"
-                className="inline-block text-white px-12 py-3 md:px-16 md:py-4 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg text-lg font-medium border-2 border-white/10 hover:border-white/30"
+                className="inline-block text-white px-8 md:px-12 lg:px-16 py-2.5 md:py-3 lg:py-4 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg text-base md:text-lg font-medium border-2 border-white/10 hover:border-white/30"
                 style={{
                   background: "linear-gradient(to right, #AD8151, #D4A76A)",
                   boxShadow: "0 0 15px rgba(173, 129, 81, 0.3)",
