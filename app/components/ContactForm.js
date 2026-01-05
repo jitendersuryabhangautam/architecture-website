@@ -1,7 +1,16 @@
 "use client";
 
-import { useState } from "react";
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { useState, useEffect } from "react";
+import {
+  MapPin,
+  Phone,
+  Mail,
+  Clock,
+  Send,
+  CheckCircle,
+  XCircle,
+} from "lucide-react";
+import emailjs from "@emailjs/browser";
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -11,6 +20,12 @@ export default function ContactForm() {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null); // null, 'success', 'error'
+
+  // Initialize EmailJS
+  useEffect(() => {
+    // EmailJS is initialized automatically when you call emailjs.send
+  }, []);
 
   const handleChange = (e) => {
     setFormData({
@@ -22,14 +37,62 @@ export default function ContactForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitStatus(null);
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      // Get EmailJS credentials from environment variables
+      const serviceID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+      const templateID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
 
-    console.log("Form submitted:", formData);
-    alert("Message sent successfully!");
-    setFormData({ name: "", email: "", message: "" });
-    setIsSubmitting(false);
+      if (!serviceID || !templateID || !publicKey) {
+        throw new Error("EmailJS credentials are not configured properly.");
+      }
+
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        message: formData.message,
+        to_name: "Step One Studio",
+        reply_to: formData.email,
+        date: new Date().toLocaleDateString("en-US", {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
+      };
+
+      console.log("Sending email with params:", templateParams);
+
+      const result = await emailjs.send(
+        serviceID,
+        templateID,
+        templateParams,
+        publicKey
+      );
+      console.log("Email sent successfully:", result);
+
+      setSubmitStatus("success");
+      setFormData({ name: "", email: "", message: "" });
+
+      // Reset success message after 5 seconds
+      setTimeout(() => {
+        setSubmitStatus(null);
+      }, 5000);
+    } catch (error) {
+      console.error("Email send error:", error);
+      setSubmitStatus("error");
+
+      // Reset error message after 5 seconds
+      setTimeout(() => {
+        setSubmitStatus(null);
+      }, 5000);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -40,6 +103,61 @@ export default function ContactForm() {
           "linear-gradient(135deg, #FFFFFF 0%, #F8F9FA 50%, #FFFFFF 100%)",
       }}
     >
+      {/* Status Messages */}
+      {submitStatus === "success" && (
+        <div className="fixed top-6 right-6 z-50 animate-fade-in">
+          <div
+            className="rounded-xl p-4 shadow-2xl max-w-sm backdrop-blur-sm"
+            style={{
+              background: "rgba(255, 255, 255, 0.95)",
+              border: "2px solid rgba(34, 197, 94, 0.3)",
+              boxShadow: "0 10px 40px rgba(34, 197, 94, 0.2)",
+            }}
+          >
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-full bg-green-100">
+                <CheckCircle className="w-5 h-5 text-green-600" />
+              </div>
+              <div>
+                <p className="font-semibold text-green-800">
+                  Message Sent Successfully!
+                </p>
+                <p className="text-sm text-green-600 mt-1">
+                  We&rsquo;ll get back to you within 24 hours.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {submitStatus === "error" && (
+        <div className="fixed top-6 right-6 z-50 animate-fade-in">
+          <div
+            className="rounded-xl p-4 shadow-2xl max-w-sm backdrop-blur-sm"
+            style={{
+              background: "rgba(255, 255, 255, 0.95)",
+              border: "2px solid rgba(239, 68, 68, 0.3)",
+              boxShadow: "0 10px 40px rgba(239, 68, 68, 0.2)",
+            }}
+          >
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-full bg-red-100">
+                <XCircle className="w-5 h-5 text-red-600" />
+              </div>
+              <div>
+                <p className="font-semibold text-red-800">
+                  Failed to Send Message
+                </p>
+                <p className="text-sm text-red-600 mt-1">
+                  Please try again or contact us directly.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Decorative elements */}
       <div
         className="absolute top-0 left-0 w-full h-1 opacity-30"
@@ -371,7 +489,10 @@ export default function ContactForm() {
                         Sending...
                       </>
                     ) : (
-                      "Send Message"
+                      <>
+                        <Send className="w-5 h-5" />
+                        Send Message
+                      </>
                     )}
                   </span>
 
@@ -396,6 +517,37 @@ export default function ContactForm() {
           </div>
         </div>
       </div>
+
+      {/* Add animation styles */}
+      <style jsx>{`
+        @keyframes fade-in {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes shine {
+          0% {
+            left: -100%;
+          }
+          100% {
+            left: 200%;
+          }
+        }
+
+        .animate-fade-in {
+          animation: fade-in 0.3s ease-out;
+        }
+
+        .group:hover .group-hover\\:animate-shine {
+          animation: shine 1s ease-in-out;
+        }
+      `}</style>
     </div>
   );
 }
