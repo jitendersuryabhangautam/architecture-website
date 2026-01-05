@@ -38,13 +38,16 @@ export default function Projects() {
         <h2 className="text-4xl font-bold text-center mb-12">Our Projects</h2>
         <div className="grid md:grid-cols-3 gap-8">
           {projectTypes.map((project, index) => (
-            <div key={index} className="bg-white rounded-xl shadow-md">
+            <div
+              key={index}
+              className="bg-white rounded-xl shadow-md hover:scale-102 transition-transform duration-300 overflow-hidden"
+            >
               <Image
                 src={project.path}
                 alt={project.title}
                 width={500}
                 height={500}
-                className="w-full h-72 object-cover mb-4"
+                className="w-full h-72 object-cover mb-4 hover:scale-105 transition-transform duration-500"
               />
               <div className="p-6">
                 <h3 className="text-2xl font-semibold mb-2">{project.title}</h3>
