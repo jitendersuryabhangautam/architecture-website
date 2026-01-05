@@ -1,7 +1,7 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Innovative Architecture, Timeless Elegance",
+  title: "Step One Design Studio - Architecture & Interior Design",
   description: "Crafting Dreams, Building Legacies",
 };
 
