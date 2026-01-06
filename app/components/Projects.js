@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 
 export default function Projects() {
@@ -150,7 +151,10 @@ function ProjectCard({ project }) {
               {project.description}
             </p>
 
-            <button className="inline-flex items-center gap-2 px-6 py-3 bg-white text-amber-800 font-semibold rounded-full hover:bg-gray-100 transition-colors duration-300">
+            <Link
+              href={"/projects"}
+              className="inline-flex items-center gap-2 px-6 py-3 bg-white text-amber-800 font-semibold rounded-full hover:bg-gray-100 transition-colors duration-300"
+            >
               Explore Projects
               <svg
                 className="w-4 h-4"
@@ -165,7 +169,7 @@ function ProjectCard({ project }) {
                   d="M14 5l7 7m0 0l-7 7m7-7H3"
                 />
               </svg>
-            </button>
+            </Link>
           </div>
         </div>
       </div>
