@@ -53,8 +53,19 @@ export default function Hero() {
           backgroundPosition: "center",
         }}
       >
-        {/* Dark overlay for better text readability */}
-        <div className="absolute inset-0 bg-black/40"></div>
+        {/* Multiple radial gradients for more dramatic effect */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `
+      radial-gradient(circle at 0% 0%, rgba(0,0,0,0.5) 0%, transparent 50%),
+      radial-gradient(circle at 100% 0%, rgba(0,0,0,0.5) 0%, transparent 50%),
+      radial-gradient(circle at 0% 100%, rgba(0,0,0,0.5) 0%, transparent 50%),
+      radial-gradient(circle at 100% 100%, rgba(0,0,0,0.5) 0%, transparent 50%),
+      radial-gradient(circle at center, rgba(0,0,0,0.1) 0%, transparent 70%)
+    `,
+          }}
+        ></div>
 
         <div className="container mx-auto relative z-10">
           <div className="text-start mb-12">
