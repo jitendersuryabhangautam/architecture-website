@@ -1,8 +1,4 @@
 "use client";
-
-import Link from "next/link";
-import Stats from "./Stats";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export default function Hero() {
