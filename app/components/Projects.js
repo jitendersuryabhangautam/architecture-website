@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 
 export default function Projects() {
@@ -118,7 +117,7 @@ function ProjectCard({ project }) {
   return (
     <div
       ref={cardRef}
-      className="bg-white rounded-xl shadow-md hover:scale-102 transition-transform duration-300 overflow-hidden"
+      className="bg-white rounded shadow-md hover:scale-102 transition-transform duration-300 overflow-hidden"
     >
       <div className="relative overflow-hidden h-72">
         <div style={{ transform: `translateY(${imageOffset * 0.5}px)` }}>
