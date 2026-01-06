@@ -15,13 +15,13 @@ export default function Projects() {
       title: "Interior Design",
       description:
         "A number of areas of architecture include engineering, development, and design.",
-      path: "/assets/project2.jpg",
+      path: "/assets/k2.jpg",
     },
     {
       title: "Landscape Design",
       description:
         "Building more architectural projects than for people who use our human positions.",
-      path: "/assets/project3.jpg",
+      path: "/assets/l1.jpg",
     },
   ];
 

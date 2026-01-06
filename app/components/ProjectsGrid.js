@@ -21,7 +21,7 @@ export default function ProjectsGrid() {
       title: "Modern Villa Design",
       description:
         "Luxury residential villa with sustainable architecture and smart home features.",
-      path: "/assets/project1.jpg",
+      path: "/assets/v1.jpg",
       tags: ["Residential Homes", "Interior Work"],
     },
     {
@@ -37,7 +37,7 @@ export default function ProjectsGrid() {
       title: "Urban Landscape Park",
       description:
         "Public park design integrating natural elements with urban architecture.",
-      path: "/assets/project3.jpg",
+      path: "/assets/l1.jpg",
       tags: ["Commercial Buildings"],
     },
     {
