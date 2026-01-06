@@ -210,7 +210,10 @@ export default function Hero() {
           {/* Text Section */}
           <div className="w-full lg:w-[55%] px-4 md:px-6 lg:px-8 py-6 md:py-8 lg:py-10">
             <div className="text-start mb-8 md:mb-10">
-              <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-4 md:mb-6 leading-tight">
+              <h1
+                style={{ fontFamily: "'Times New Roman', serif" }}
+                className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-transparent bg-clip-text bg-linear-to-r from-[#AD8151] to-[#D4A76A] mb-4 md:mb-6 leading-tight"
+              >
                 Crafting Dreams,
                 <br />
                 Building Legacies
