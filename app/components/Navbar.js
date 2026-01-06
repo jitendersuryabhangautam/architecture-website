@@ -41,9 +41,9 @@ export default function Navbar() {
       }`}
     >
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <div className="text-xl md:text-2xl font-bold text-white">
+        <div className="flex-1 min-w-0 text-xl md:text-2xl font-bold text-white">
           <span
-            className="bg-clip-text text-transparent"
+            className="block truncate bg-clip-text text-transparent"
             style={{
               background: "linear-gradient(to right, #AD8151, #D4A76A)",
               backgroundClip: "text",

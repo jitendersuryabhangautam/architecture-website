@@ -63,7 +63,7 @@ export default function Hero() {
         <div className="container mx-auto relative z-10">
           <div className="text-start mb-12">
             <h1
-              className="text-8xl md:text-5xl lg:text-8xl font-bold text-white mb-4 leading-tight"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight"
               style={{ fontFamily: "'Times New Roman', serif" }}
             >
               Lets Discuss

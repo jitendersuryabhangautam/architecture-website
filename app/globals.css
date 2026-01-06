@@ -51,3 +51,31 @@ body {
 .fade-out {
   animation: fadeOut 0.8s ease-in-out forwards;
 }
+
+/* Prevent horizontal overflow on small devices and ensure images scale */
+html,
+body {
+  overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+img,
+picture,
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Reduce default container padding on very small screens */
+@media (max-width: 420px) {
+  .container {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
